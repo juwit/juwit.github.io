@@ -28,6 +28,20 @@ projects:
     projects:
     # - repo-name
 
+pinned_repos:
+  - name: gaia-app/gaia
+    html_url: https://github.com/gaia-app/gaia
+    description: Gaia is a Terraform 🌍 UI for your modules, and self-service infrastructure 👨‍💻
+    language: Java
+    stargazers_count: 303
+    forks_count: 41
+  - name: gaia-app/runner
+    html_url: https://github.com/gaia-app/runner
+    description:  gaia-runner is the service that runs the Terraform jobs in Gaia. 
+    language: Java
+    stargazers_count: 1
+    forks_count: 8
+
 social_media:
   # behance: your_username
   # dribbble: your_username

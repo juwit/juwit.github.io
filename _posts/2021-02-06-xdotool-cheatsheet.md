@@ -5,8 +5,6 @@ modified: '2022-04-15'
 language: en
 ---
 
-# xdotool cheatsheet
-
 I played a lot these days with xdotool, to try to automate some stuff for my Elgato Streamdeck.
 
 These are the things I try to do:

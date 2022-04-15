@@ -52,3 +52,21 @@
 .min-height-full {
   min-height: 100vh;
 }
+
+// Styles for markdown tables
+table {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+td, th {
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+
+th {
+  background-color: lightblue;
+}

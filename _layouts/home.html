@@ -8,6 +8,12 @@
       {{ content }}
     </div>
 
+    {% if site.show_stats %}
+    <div class="my-6">
+      {% include stats.html %}
+    </div>
+    {% endif %}
+
     <div class="my-6">
       {% include projects.html %}
     </div>
@@ -41,8 +47,12 @@
         {% unless posts_total == 0 %}
           {% include thoughts.html %}
         {% endunless %}
-
+        
         {% include projects.html %}
+
+        {% if site.show_stats %}
+          {% include stats.html %}
+        {% endif %}
 
         {% if site.topics %}
           {% include interests.html %}

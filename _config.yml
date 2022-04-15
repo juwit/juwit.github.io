@@ -42,6 +42,8 @@ pinned_repos:
     stargazers_count: 1
     forks_count: 8
 
+show_stats: true
+
 social_media:
   # behance: your_username
   # dribbble: your_username

@@ -1,8 +1,10 @@
 ---
 title: Configure a Global Gitignore 🙈
 created: '2020-04-16'
-modified: '2022-04-15'
+modified: '2022-06-17'
 language: en
+categories: devops
+tags: git
 ---
 
 This short articles shows how to setup a global `.gitignore` file, to exclude files or directories for all your git repositories.

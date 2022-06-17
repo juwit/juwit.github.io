@@ -1,8 +1,9 @@
 ---
 title: Schedule a linux command to run later with `at`
 created: '2020-07-15'
-modified: '2022-04-15'
+modified: '2022-06-17'
 language: en
+categories: devops
 ---
 
 As I prepare and run a lot of scripts, sometimes I need to run a script at a precise time of the day.
@@ -47,7 +48,7 @@ It will use the available env-vars of the shell when the command `at` is execute
 
 ## view scheduled commands
 
-```
+```shell
 $ atq
 1	Sat Apr 16 09:00:00 2022 a jwittouck
 ```
@@ -69,6 +70,6 @@ git pull
 
 ## delete a job
 
-```
+```shell
 $ atrm 1
 ```

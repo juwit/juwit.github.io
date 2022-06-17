@@ -3,6 +3,7 @@ title: xdotool cheatsheet
 created: '2021-02-06'
 modified: '2022-04-15'
 language: en
+categories: tools
 ---
 
 I played a lot these days with xdotool, to try to automate some stuff for my Elgato Streamdeck.

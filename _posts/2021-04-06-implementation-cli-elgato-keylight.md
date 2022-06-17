@@ -3,7 +3,8 @@ title: Implémentation d'un CLI pour la Elgato KeyLight
 created: '2021-04-06'
 modified: '2022-04-15'
 language: fr
-published: true
+categories: dev
+tags: go
 ---
 
 ## Adresse IP/URL du KeyLight
@@ -145,7 +146,7 @@ Ce n'est probablement pas le setup le plus pratique, mais cela permet de mettre 
 
 Le CLI devra supporter les commandes suivantes :
 
-```
+```shell
 keylight on
 keylight off
 keylight brightness <X>
@@ -162,7 +163,7 @@ J'ai décompressé le tar dans mon répertoire `/opt`
 
 J'ai aussi fait pointer ma variable `JAVA_HOME` au bon endroit :
 
-```
+```shell
 ~ > echo $JAVA_HOME
 /opt/graalvm-ce-java11-21.0.0.2
 ```
@@ -178,7 +179,7 @@ Il n'y a plus qu'a combler les trous !
 
 Il faut tout d'abord installer l'outil `native-image` :
 
-```
+```shell
 /opt/graalvm-ce-java11-21.0.0.2/bin > sudo ./gu install native-image
 Downloading: Component catalog from www.graalvm.org
 Processing Component: Native Image

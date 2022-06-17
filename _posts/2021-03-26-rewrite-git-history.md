@@ -3,6 +3,8 @@ title: Réécrire une branche git
 created: '2021-03-26'
 modified: '2022-04-22'
 language: fr
+categories: devops
+tags: git
 ---
 
 Je suis tombé sur un cas où un fichier a été ajouté dans git (commité), puis modifié par plusieurs commits successifs.

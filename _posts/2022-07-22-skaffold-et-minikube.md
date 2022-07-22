@@ -402,4 +402,3 @@ De nombreux [exemples](https://github.com/GoogleContainerTools/skaffold/tree/mai
 * le site web [skaffold.dev](https://skaffold.dev/)
 * la [documentation](https://skaffold.dev/docs/)
 * les [exemples de code sur Github](https://github.com/GoogleContainerTools/skaffold/tree/main/examples)
-* 

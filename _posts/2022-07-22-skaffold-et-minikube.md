@@ -395,3 +395,11 @@ La [documentation de `skaffold`](https://skaffold.dev/docs/) est très complète
 Enfin, `skaffold` est au coeur des plugins *Cloud Code* de Google, pour IntelliJ IDEA et VSCode pour l'exécution et le déploiement des application sur Kubernetes.
 
 De nombreux [exemples](https://github.com/GoogleContainerTools/skaffold/tree/main/examples) sont disponibles sur le repository Github de `skaffold`, il y en aura surement un qui correspondra à votre type de projet si vous voulez expérimenter.
+
+### Liens
+
+* le repository Github de [GoogleContainerTools/skaffold](https://github.com/GoogleContainerTools/skaffold)
+* le site web [skaffold.dev](https://skaffold.dev/)
+* la [documentation](https://skaffold.dev/docs/)
+* les [exemples de code sur Github](https://github.com/GoogleContainerTools/skaffold/tree/main/examples)
+* 

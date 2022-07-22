@@ -58,11 +58,15 @@
           <div class="f4 {% if site.style == 'dark' %}text-white{% endif %}">
             <p class="f5"><a href="{{ site.url }}{{ site.baseurl | append:'/' }}" class="d-flex flex-items-center {% if site.style == 'dark' %}text-white{% endif %}">{% octicon chevron-left height:16 class:"mr-2 v-align-middle" fill:{{ icon_color }} aria-label:Home %}Home</a></p>
             <h1 class="f00-light lh-condensed">{{ page.title }}</h1>
-            <p class="{% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %} mb-5">
+            <p class="{% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
               Published {{ page.date | date: "%b %d, %Y"}}
               {% if page.modified %}
               - Updated {{ page.modified | date: "%b %d, %Y"}}
               {% endif %}
+            </p>
+            <p class="{% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %} mb-5">
+              {{ page.content | number_of_words }} words,
+              {{ page.content | number_of_words | divided_by: 180 }} minutes to read
             </p>
             {{ post_body }}
           </div>

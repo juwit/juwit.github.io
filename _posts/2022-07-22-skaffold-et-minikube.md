@@ -2,46 +2,49 @@
 layout: post
 title: Exécuter une application localement sur minikube avec skaffold
 created: '2022-07-22'
+modified: '2022-07-29'
 language: fr
 categories: devops
 tags: kubernetes skaffold minikube docker
 ---
 
 # Exécuter une application localement sur minikube avec skaffold
-Lorsqu'on développe une application pour Kubernetes, on est souvent lié à une boucle de développement assez longue:
+Lors du développement d'une application pour Kubernetes, le développeur est souvent lié à une boucle de feedback assez longue:
 1. Développement
 2. Contruction de l'image Docker (quelques secondes/minutes)
 3. Push de l'image sur un registry
 4. Déploiement sur Kubernetes (quelques minutes)
 
-Cette boucle peut être potentiellement implémentée par des pipelines de CI/CD, qui amènent le temps entre le développement et une application démarrée sur Kubernetes à plusieurs minutes. Ce temps est relativement long lorsqu'on compare un cycle de développement local auquel un développeur peut être habitué.
+Cette boucle est généralement implémentée par des pipelines de CI/CD. Ces pipelines augmentent encore le temps entre le développement et une application démarrée sur Kubernetes. Ce temps est relativement long lorsqu'on compare un cycle de développement local auquel un développeur peut être habitué.
 
-`skaffold`, développé par Google, est un outil open-source, qui permet de diminuer ce cycle de développement, et d'implémenter cette boucle de développement sur un environnement Kubernetes local ou distant. La promesse de `skaffold` est de rendre le développement sur Kubernetes simple, rapide, et reproductible.
+[`skaffold`](https://skaffold.dev){:target="_blank"}, développé par Google, est un outil open-source en license Apache, qui permet d'implémenter cette boucle de développement sur un environnement Kubernetes local ou distant. La promesse de `skaffold` est de rendre le développement sur Kubernetes simple, rapide, et reproductible.
 
 ![la page d'accueil de skaffold](/assets/2022-07-22-skaffold-et-minikube/skaffold.png){:width="75%"}
 
 `skaffold` implémente un *pipeline* qui se déroule en plusieurs étapes:
 1. *build* : construction des images docker avec:
-	1. Docker
-	2. Buildpacks
-	3. Jib
-2. *tag* : tag de l'image docker en utilisant différentes stratégies :
-	1. l'identifiant du commit git (par défaut)
-	2. une date
-	3. des variables d'environnement
-	4. un hash des fichiers source
+	* Docker (sur base d'un `Dockerfile`)
+	* Buildpacks
+	* Jib
+2. *tag* de l'image docker en utilisant différentes stratégies :
+	* l'identifiant du commit git (par défaut)
+	* une date
+	* des variables d'environnement
+	* un hash des fichiers source
+  * push de l'image sur un registry
+  * chargement direct de l'image dans un cluster Kubernetes
 3. *deploy* : déploiement de l'application sur Kubernetes (local ou distant) en utilisant:
-	1. kubectl et des fichiers yaml
-	2. kustomize
-	3. helm
+	* `kubectl` et des fichiers yaml
+	* `kustomize`
+	* `helm`
 4. *tail logs & port forward* : affiche les logs de l'application, et redirige un port local
-5. *status check* : attend la fin du bon déploiement d'une application
+5. *status check* : attend la fin du bon déploiement de application
 
-Pour utiliser  `skaffold`, nous avons donc besoin d'un accès à un cluster kubernetes, et d'un code à déployer. Pour la suite de cet article, j'utilise un cluster `minikube`  que j'installe sur mon poste.
+`skaffold` a besoin d'un code à déployer, ainsi qu'un accès à un cluster Kubernetes. L'accès au cluster se configure de la même manière que pour `kubectl`, à travers un fichier `~/.kube/config`. Pour la suite de cet article, j'utilise un cluster `minikube` que j'installe sur mon poste pour l'occasion.
 
 ## Déployer un cluster minikube localement
-La première étape consiste à déployer un cluster `minikube` sur son poste de développement.
-Pour ce faire, on peut suivre les étapes d'installation de l'outil détaillées [dans leur documentation d'installation](https://minikube.sigs.k8s.io/docs/start/).
+La première étape consiste à déployer un cluster `minikube` sur mon poste de développement.
+Pour ce faire, le plus pratique est de suivre les étapes d'installation de l'outil détaillées [dans leur documentation d'installation](https://minikube.sigs.k8s.io/docs/start/){:target="_blank"}.
 
 ![installation de minikube](/assets/2022-07-22-skaffold-et-minikube/minikube-install.png){:width="75%"}
 
@@ -50,7 +53,7 @@ Voici les commandes que j'ai exécuté pour installer `minikube` sur mon poste L
 $ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
-`docker` étant déjà installé sur mon poste, je peux tout de suite démarrer un cluster kubernetes local avec la commande `minikube start`:
+`docker` étant déjà installé sur mon poste, je peux tout de suite démarrer un cluster Kubernetes local avec la commande `minikube start`:
 ```shell
 $ minikube start
 😄  minikube v1.24.0 on Debian bookworm/sid
@@ -89,22 +92,22 @@ $ kubectl get nodes
 NAME       STATUS   ROLES                  AGE    VERSION
 minikube   Ready    control-plane,master   1d     v1.22.3
 ```
-Si vous n'avez pas la commande `kubectl` installée, `minikube` l'intègre et elle est utilisable de cette manière:
+Si la commande `kubectl` n'est pas installée, `minikube` l'intègre et elle est utilisable de cette manière:
 ```shell
 $ minikube kubectl get nodes
 NAME       STATUS   ROLES                  AGE    VERSION
 minikube   Ready    control-plane,master   1d     v1.22.3
 ```
-Pour ma part, j'ai installé `kubectl` avec l'outil de packaging de mon système en suivant [cette procédure](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management).
-Une fois que `minikube` et `kubectl` sont installés, démarrés et configurés, on peut passer à l'installation de `skaffold`.
+Pour ma part, j'ai installé `kubectl` avec l'outil de packaging de mon système en suivant [cette procédure](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management){:target="_blank"}.
+Une fois que `minikube` et `kubectl` sont installés, démarrés et configurés, je peux passer à l'installation de `skaffold`.
 ## Installation de skaffold
 L'installation de `skaffold` est similaire à celle de `minikube` et `kubectl`.
-J'ai suivi la procédure sur [dans leur documentation](https://skaffold.dev/docs/install/) et installé la version Linux avec ces commandes:
+J'ai suivi la procédure sur [dans leur documentation](https://skaffold.dev/docs/install/){:target="_blank"} et installé la version Linux avec ces commandes:
 ```shell
 $ curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
 sudo install skaffold /usr/local/bin/
 ```
-`skaffold` est maintenant disponible :
+`skaffold` est maintenant disponible sur mon poste:
 ```shell
 $ skaffold version
 v1.39.1
@@ -135,28 +138,28 @@ J'ai pris pour exemple un projet Micronaut avec lequel je suis en train d'expér
             ├── bootstrap.yml
             └── logback.xml
 ```
-La configuration initiale du projet se fait en utilisant la commande `skaffold init` . Cette commande va vous proposer différentes options ([documentation](https://skaffold.dev/docs/pipeline-stages/init/)) en interactif pour créer son fichier de configuration. Cette étape est plus simple qu'écrire le fichier à la main.
-Comme je n'ai pas écrit de fichiers manifest pour Kubernetes, `skaffold` a une option pour les générer: `--generate-manifests`.
+La configuration initiale du projet se fait en utilisant la commande `skaffold init` . Cette commande propose différentes options ([documentation](https://skaffold.dev/docs/pipeline-stages/init/){:target="_blank"}) en interactif pour créer son fichier de configuration. Cette étape est plus simple qu'écrire le fichier à la main.
+Comme je n'ai pas encore écrit de fichiers manifest Kubernetes pour mon application, `skaffold` a une option pour les générer: `--generate-manifests`.
 
-La première étape consiste à configurer la phase de *build* de l'application, à savoir la construction de l'image docker. Plusieurs options sont proposées, en fonction de ce qui est disponible dans votre code.
+La première étape consiste à configurer la phase de *build* de l'application, à savoir la construction de l'image docker. Plusieurs options seront proposées, en fonction de ce qui est déjà disponible dans le code : `Dockerfile`, configuration de `jib`, ou manifests Kubernetes.
 Mon projet Micronaut a déjà une configuration pour `jib` dans son `pom.xml`:
 ```xml
 <build>
-	<plugins>
-		<plugin>
-		    <groupId>com.google.cloud.tools</groupId>
-	        <artifactId>jib-maven-plugin</artifactId>
-	        <version>3.2.1</version>
-		</plugin>
-    </plugins>
+  <plugins>
+    <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>3.2.1</version>
+    </plugin>
+  </plugins>
 </build>
 ```
 
-`skaffold init` me propose de paramétrer ma phase de *build* avec Buildpacks ou Jib:
+`skaffold init` me propose alors de paramétrer ma phase de *build* avec Buildpacks ou Jib:
 
 ```shell
 $ skaffold init --generate-manifests
-? Which builders would you like to create kubernetes resources for?  [Use arrows to move, space to select, <right> to all, <left> to none, type to filter]
+? Which builders would you like to create Kubernetes resources for?  [Use arrows to move, space to select, <right> to all, <left> to none, type to filter]
 > [ ]  Buildpacks (pom.xml)
   [ ]  Jib Maven Plugin (com.example:demo-app-pokemon-micronaut, pom.xml)
 ```
@@ -175,7 +178,7 @@ You can now run [skaffold build] to build the artifacts
 or [skaffold run] to build and deploy
 or [skaffold dev] to enter development mode, with auto-redeploy
 ```
-Notez que si des fichiers de déploiement Kubernetes sont déjà présents dans l'application, `skaffold` les détecte et les ajoute à sa configuration automatiquement.
+À noter que si des fichiers de déploiement Kubernetes sont déjà présents dans l'application, `skaffold` les détecte et les ajoute à sa configuration automatiquement.
 Le fichier `deployment.yaml` généré pour Kubernetes est simple:
 ```yaml
 apiVersion: v1
@@ -237,9 +240,9 @@ Le fichier généré contient de la configuration pour 3 étapes du pipeline de 
 La phase de *build* est bien configurée pour construire une image Docker en utilisant *Jib*, l'image produite sera nommée `pom-xml-image`. Ce nom par défaut pourra être changé en modifiant ce fichier de configuration.
 
 La phase de *deploy* est configurée pour déployer des manifests Kubernetes, ici le fichier `deployment.yaml` qui a été généré par la commande `skaffold init`. Ces fichiers manifest référencent l'image `pom-xml-image` dans la partie *Deployment* du manifest.
-On voit donc ici bien comment on peut adapter cette configuration pour inclure d'autres fichiers, comme une *ConfigMap*.
+On voit donc ici comment on peut adapter cette configuration pour inclure d'autres fichiers, comme une *ConfigMap*.
 
-J'ai pris le parti de déplacer les fichiers de manifest Kubernetes générés dans le répertoire `src/main/kubernetes` de mon application, et de renommer l'image générée.
+J'ai pris le parti de déplacer les fichiers de manifest Kubernetes générés dans le répertoire `src/main/Kubernetes` de mon application, et de renommer l'image générée.
 Voici la structure de mon application après ces opérations:
 ```shell
 .
@@ -330,7 +333,7 @@ Watching for changes...
 ![](/assets/2022-07-22-skaffold-et-minikube/localhost.png)
 
 En quelques minutes, mon application est démarré sur mon cluster `minikube` local.
-Je peux voir avec une commande `kubectl get all` que mes fichiers ont bien été déployés et que mon application tourne:
+Je peux voir avec une commande `kubectl get all` que mes manifests ont bien été déployés et que mon application tourne:
 ```shell
 $ kubectl get all
 NAME                                 READY   STATUS    RESTARTS   AGE
@@ -347,9 +350,9 @@ NAME                                       DESIRED   CURRENT   READY   AGE
 replicaset.apps/demo-skaffold-5bfb47c8fc   1         1         1       19m
 
 ```
-`skaffold` est capable de faire du *hot-reload* sans configuration supplémentaire pour les applications buildées avec *jib*.
+`skaffold` est aussi capable de faire du *hot-reload* sans configuration supplémentaire pour les applications buildées avec *jib*.
 Il suffit de:
-* modifier son code
+* modifier le code
 * attendre quelques secondes que le code soit re-compilé, et l'application est re-démarrée
 
 ```shell
@@ -376,7 +379,7 @@ Deployments stabilized in 1.038 second
 Port forwarding service/pom-xml-image in namespace default, remote port 8080 -> http://127.0.0.1:8080
 Watching for changes...
 ```
-C'est particulièrement pratique pour tester son application localement!
+C'est particulièrement pratique pour tester une application localement!
 Si je veux arrêter de développer, j'utilise la combinaison de touches *CTRL+C*, qui va stopper l'application, et faire le ménage sur le cluster Kubernetes:
 ```shell
 ^C
@@ -386,19 +389,19 @@ Cleaning up...
  - service "demo-skaffold" deleted
 ```
 ## Conclusion
-`skaffold` permet de rendre accessible au développeur le déploiement sur un cluster Kubernetes, local ou distant. Cet article a présenté son usage sur un cluster local `minikube`, mais `skaffold` fonctionne de manière indifférenciée sur un cluster distant. Il permet aussi de réutiliser des fichiers de configuration Kubernetes, Kustomize ou Helm existants, ce qui est très pratique si votre application dispose déjà de ce type de fichiers.
+`skaffold` permet de rendre accessible au développeur le déploiement sur un cluster Kubernetes, local ou distant. Cet article a présenté son usage sur un cluster local `minikube`, mais `skaffold` fonctionne de manière indifférenciée sur un cluster distant. Il permet aussi de réutiliser des fichiers de configuration Kubernetes, Kustomize ou Helm existants, ce qui est très pratique si l'application dispose déjà de ce type de fichiers.
 
-Le port forward est très bien intégré, et pratique à l'usage (pas besoin de taper une commande `kubectl` supplémentaire)
+Le port forward est très bien intégré, et pratique à l'usage (pas besoin de taper une commande `kubectl` supplémentaire).
 
-La [documentation de `skaffold`](https://skaffold.dev/docs/) est très complète et indique tous les paramètres que chaque phase de son pipeline accepte, et fourni aussi des liens vers des tutoriaux.
+La [documentation de `skaffold`](https://skaffold.dev/docs/){:target="_blank"} est très complète et indique tous les paramètres que chaque phase de son pipeline accepte, et fourni aussi des liens vers des tutoriaux.
 
 Enfin, `skaffold` est au coeur des plugins *Cloud Code* de Google, pour IntelliJ IDEA et VSCode pour l'exécution et le déploiement des application sur Kubernetes.
 
-De nombreux [exemples](https://github.com/GoogleContainerTools/skaffold/tree/main/examples) sont disponibles sur le repository Github de `skaffold`, il y en aura surement un qui correspondra à votre type de projet si vous voulez expérimenter.
+De nombreux [exemples](https://github.com/GoogleContainerTools/skaffold/tree/main/examples){:target="_blank"} sont disponibles sur le repository Github de `skaffold`, il y en aura surement un qui correspondra à votre type de projet si vous voulez expérimenter.
 
 ### Liens
 
-* le repository Github de [GoogleContainerTools/skaffold](https://github.com/GoogleContainerTools/skaffold)
-* le site web [skaffold.dev](https://skaffold.dev/)
-* la [documentation](https://skaffold.dev/docs/)
-* les [exemples de code sur Github](https://github.com/GoogleContainerTools/skaffold/tree/main/examples)
+* le repository Github de [GoogleContainerTools/skaffold](https://github.com/GoogleContainerTools/skaffold){:target="_blank"}
+* le site web [skaffold.dev](https://skaffold.dev/){:target="_blank"}
+* la [documentation](https://skaffold.dev/docs/){:target="_blank"}
+* les [exemples de code sur Github](https://github.com/GoogleContainerTools/skaffold/tree/main/examples){:target="_blank"}

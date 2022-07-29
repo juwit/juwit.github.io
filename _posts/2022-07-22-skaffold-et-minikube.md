@@ -17,7 +17,7 @@ Lors du développement d'une application pour Kubernetes, le développeur est so
 
 Cette boucle est généralement implémentée par des pipelines de CI/CD. Ces pipelines augmentent encore le temps entre le développement et une application démarrée sur Kubernetes. Ce temps est relativement long lorsqu'on compare un cycle de développement local auquel un développeur peut être habitué.
 
-[`skaffold`](https://skaffold.dev){:target="_blank"}, développé par Google, est un outil open-source en license Apache, qui permet d'implémenter cette boucle de développement sur un environnement Kubernetes local ou distant. La promesse de `skaffold` est de rendre le développement sur Kubernetes simple, rapide, et reproductible.
+[`skaffold`](https://skaffold.dev){:target="_blank"}, développé par Google, est un outil open-source en license Apache, qui permet d'implémenter cette boucle de développement sur un environnement Kubernetes local ou distant. La promesse de `skaffold` est de rendre le développement sur Kubernetes simple, rapide et reproductible.
 
 ![la page d'accueil de skaffold](/assets/2022-07-22-skaffold-et-minikube/skaffold.png){:width="75%"}
 
@@ -37,7 +37,7 @@ Cette boucle est généralement implémentée par des pipelines de CI/CD. Ces pi
 	* `kubectl` et des fichiers yaml
 	* `kustomize`
 	* `helm`
-4. *tail logs & port forward* : affiche les logs de l'application, et redirige un port local
+4. *tail logs & port forward* : affiche les logs de l'application et redirige un port local
 5. *status check* : attend la fin du bon déploiement de application
 
 `skaffold` a besoin d'un code à déployer, ainsi qu'un accès à un cluster Kubernetes. L'accès au cluster se configure de la même manière que pour `kubectl`, à travers un fichier `~/.kube/config`. Pour la suite de cet article, j'utilise un cluster `minikube` que j'installe sur mon poste pour l'occasion.
@@ -169,7 +169,7 @@ L'étape suivante propose de configurer un port à forwarder pour mon image Dock
 ```shell
 ? Select port to forward for pom-xml-image (leave blank for none): 8080
 ```
-`skaffold` me propose ensuite un manifest Kubernetes, et me demande si je souhaite générer les fichiers:
+`skaffold` me propose ensuite un manifest Kubernetes et me demande si je souhaite générer les fichiers:
 ```shell
 ? Do you want to write this configuration, along with the generated k8s manifests, to skaffold.yaml? Yes
 Generated manifest deployment.yaml was written
@@ -242,7 +242,7 @@ La phase de *build* est bien configurée pour construire une image Docker en uti
 La phase de *deploy* est configurée pour déployer des manifests Kubernetes, ici le fichier `deployment.yaml` qui a été généré par la commande `skaffold init`. Ces fichiers manifest référencent l'image `pom-xml-image` dans la partie *Deployment* du manifest.
 On voit donc ici comment on peut adapter cette configuration pour inclure d'autres fichiers, comme une *ConfigMap*.
 
-J'ai pris le parti de déplacer les fichiers de manifest Kubernetes générés dans le répertoire `src/main/Kubernetes` de mon application, et de renommer l'image générée.
+J'ai pris le parti de déplacer les fichiers de manifest Kubernetes générés dans le répertoire `src/main/Kubernetes` de mon application et de renommer l'image générée.
 Voici la structure de mon application après ces opérations:
 ```shell
 .
@@ -353,7 +353,7 @@ replicaset.apps/demo-skaffold-5bfb47c8fc   1         1         1       19m
 `skaffold` est aussi capable de faire du *hot-reload* sans configuration supplémentaire pour les applications buildées avec *jib*.
 Il suffit de:
 * modifier le code
-* attendre quelques secondes que le code soit re-compilé, et l'application est re-démarrée
+* attendre quelques secondes que le code soit re-compilé et l'application est re-démarrée
 
 ```shell
 Watching for changes...
@@ -380,7 +380,7 @@ Port forwarding service/pom-xml-image in namespace default, remote port 8080 -> 
 Watching for changes...
 ```
 C'est particulièrement pratique pour tester une application localement!
-Si je veux arrêter de développer, j'utilise la combinaison de touches *CTRL+C*, qui va stopper l'application, et faire le ménage sur le cluster Kubernetes:
+Si je veux arrêter de développer, j'utilise la combinaison de touches *CTRL+C*, qui va stopper l'application et faire le ménage sur le cluster Kubernetes:
 ```shell
 ^C
 Cleaning up...
@@ -391,9 +391,9 @@ Cleaning up...
 ## Conclusion
 `skaffold` permet de rendre accessible au développeur le déploiement sur un cluster Kubernetes, local ou distant. Cet article a présenté son usage sur un cluster local `minikube`, mais `skaffold` fonctionne de manière indifférenciée sur un cluster distant. Il permet aussi de réutiliser des fichiers de configuration Kubernetes, Kustomize ou Helm existants, ce qui est très pratique si l'application dispose déjà de ce type de fichiers.
 
-Le port forward est très bien intégré, et pratique à l'usage (pas besoin de taper une commande `kubectl` supplémentaire).
+Le port forward est très bien intégré et pratique à l'usage (pas besoin de taper une commande `kubectl` supplémentaire).
 
-La [documentation de `skaffold`](https://skaffold.dev/docs/){:target="_blank"} est très complète et indique tous les paramètres que chaque phase de son pipeline accepte, et fourni aussi des liens vers des tutoriaux.
+La [documentation de `skaffold`](https://skaffold.dev/docs/){:target="_blank"} est très complète et indique tous les paramètres que chaque phase de son pipeline accepte et fourni aussi des liens vers des tutoriaux.
 
 Enfin, `skaffold` est au coeur des plugins *Cloud Code* de Google, pour IntelliJ IDEA et VSCode pour l'exécution et le déploiement des application sur Kubernetes.
 

@@ -34,14 +34,14 @@ pinned_repos:
     html_url: https://github.com/gaia-app/gaia
     description: Gaia is a Terraform 🌍 UI for your modules, and self-service infrastructure 👨‍💻
     language: Java
-    stargazers_count: 303
-    forks_count: 41
+    stargazers_count: 638
+    forks_count: 66
   - name: gaia-app/runner
     html_url: https://github.com/gaia-app/runner
     description:  gaia-runner is the service that runs the Terraform jobs in Gaia. 
     language: Java
-    stargazers_count: 1
-    forks_count: 8
+    stargazers_count: 2
+    forks_count: 10
 
 show_stats: true
 
@@ -53,7 +53,7 @@ social_media:
   # instagram: your_username
   # keybase: your_username
   linkedin: julien-wittouck
-  # mastodon: your_username
+  mastodon: '@codekaio@mas.to'
   # medium: your_username
   # stackoverflow: your_user_id
   # telegram: your_username
@@ -75,6 +75,10 @@ topics:
   - name: Linux
     web_url: https://github.com/topics/Linux
     image_url: https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/linux/linux.png
+
+  - name: Kubernetes
+    web_url: https://github.com/topics/Kubernetes
+    image_url: https://raw.githubusercontent.com/github/explore/01ea2a586e5da744792d0ccfce2f68b861f29301/topics/kubernetes/kubernetes.png
 
   - name: Terraform
     web_url: https://github.com/topics/Terraform

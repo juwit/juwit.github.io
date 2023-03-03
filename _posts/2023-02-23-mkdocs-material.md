@@ -1,6 +1,7 @@
 ---
 title: Créer un site web de documentation statique avec MkDocs
 created: '2023-02-23'
+modified: '2023-03-03'
 language: fr
 categories: docs
 tags: git tools docs
@@ -15,12 +16,12 @@ Pour la documentation technique, les administrateurs, opérateurs et développeu
 La documentation peut prendre plusieurs formes:
 
 * un document bureautique, de type LibreOffice Writer ou Microsoft Word
-* des pages dans un référentiel documentaire de typoe _wiki_, ou _Atlassian Confluence_
+* des pages dans un référentiel documentaire de type _wiki_, ou _Atlassian Confluence_
 * un site web dédié
 
-Les documents bureautique sont bien adaptés à la documentation de procédures, ou spécifications. Cependant, ils souffrent de nombreux défauts comme le manque d'archivage des modifications, une recherche compliquée, un fort liant entre le format et le contenu et sont souvent portés par des formats propriétaires (le fameux `.docx`).
+Les documents bureautique sont bien adaptés à la documentation de procédures, ou de spécifications. Cependant, ils souffrent de nombreux défauts comme le manque d'archivage des modifications, une recherche compliquée, un fort liant entre le format et le contenu et sont souvent portés par des formats propriétaires (le fameux `.docx`).
 
-Les référentiels de type _wiki_ répondent au problèmes de recherche et d'archivage des historiques de modifications. Cependant, ils nécessitent souvent une infrastructure avec une base de données, et donc ont un coût d'hébergement et de maintenance. 
+Les référentiels de type _wiki_ répondent au problèmes de recherche et d'archivage des historiques de modifications. Cependant, ils nécessitent souvent une infrastructure avec une base de données, et ont donc un coût d'hébergement et de maintenance. 
 
 Le cas du site web statique dédié est le plus adapté à un projet open-source. Le site sera exposé sur internet, aidant à mettre en visibilité le projet. Un site web statique nécessite un hébergement minimum, sans base de données, et sera donc plus simple à mettre en place.
 
@@ -44,12 +45,12 @@ L'intérêt d'utiliser ces formats est multiple:
 
 * le développeur se concentre sur la rédation du contenu plutôt que sur le formattage des données
 * la documentation peut être archivée comme du code source, voire dans le même repository que le projet
-* ces formats sont simples d'utilisation, même pour des personnes non techniques
+* ces formats sont simples d'utilisation, même pour des personnes ayant peu ouo pas de connaissances techniques
 
 ## Les générateurs de sites web statiques
 
 Des fichiers _markdown_ ou _asciidoc_ sur un repository _git_ peuvent parfois être suffisant. _Gitlab_ et _Github_ sont capables d'afficher des fichiers _markdown_ ou _asciidoc_ directement dans leur interface. C'est le cas par exemple des fameux `README.md` qu'on retrouve sur une majorité de projets.
-Cet usage est parfois suffisant pour documenter une librairie ou un projet simple. 
+Cet usage peut suffire pour documenter une librairie ou un projet simple. 
 D'autres projets, plus compliqués, auront plus de pages de documentation, et des besoins de personnalisation, c'est là où un générateur de site web statique sera utile.
 
 ### _asciidoc_ et _asciidoctor_
@@ -94,7 +95,7 @@ Nous allons voir dans la suite de cet article:
 
 # Création du projet de documentation
 
-La documentation peut être crée comme un repository Git dédié, ou comme un répertoire d'un repository existant, dans le cas d'une approche _mono-repo_ par exemple.
+La documentation peut être créée comme un repository Git dédié, ou comme un répertoire d'un repository existant, dans le cas d'une approche _mono-repo_ par exemple.
 
 C'est cette deuxième solution que nous allons suivre.
 Dans un projet existant, on commence par créer un répertoire `docs`:

@@ -62,7 +62,9 @@ Les pages _HTML_ générées peuvent alors être publiées directement.
 C'est ce qui est utilisé par le framework Java *Spring* par exemple.
 
 Voici à titre d'exemple la [documentation générée pour le framework Spring](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/){:target="_blank"} , à partir des documents *asciidoc* disponible sur _Github_: 
+
 ![](/assets/2023-02-23-mkdocs-material/mkdocs-spring.png)
+
 
 Les sources sont visibles sur le [_Github_ de _Spring_](https://github.com/spring-projects/spring-boot/tree/main/spring-boot-project/spring-boot-docs/src/docs/asciidoc){:target="_blank"}.
 
@@ -153,6 +155,7 @@ INFO     -  [09:32:45] Serving on http://127.0.0.1:8000/
 ```
 
 Le site web est construit, et disponible en local:
+
 ![](/assets/2023-02-23-mkdocs-material/create-docs-website-preview.png)
 
 # Ajout d'un thème & customisation
@@ -249,6 +252,7 @@ extra_css:
 ```
 
 Et voici notre site avec le thème et sa customisation.
+
 ![](/assets/2023-02-23-mkdocs-material/create-docs-website-theme.png)
 
 # L'ajout de contenu
@@ -275,6 +279,7 @@ Il est à la tête du projet "Étoile de la mort", et son commandant.
 L'en-tête du fichier est au format _Front Matter_, qui a été popularisé par [_Jekyll_](https://jekyllrb.com/docs/front-matter/){:target="_blank"}.
 
 Le rendu est le suivant:
+
 ![](/assets/2023-02-23-mkdocs-material/create-docs-website-content-page.png)
 
 Notez que :
@@ -376,6 +381,7 @@ Le fichier final complet est disponible sur [le repository _Github_](https://git
 ![](/assets/2023-02-23-mkdocs-material/create-docs-website-github-pages.png)
 
 Une fois le fichier Github Actions publié, le workflow pourra s'exécuter, et publier le site web:
+
 ![](/assets/2023-02-23-mkdocs-material/create-docs-website-workflow.png)
 
 Le résultat final est visible [via ce lien](https://ekit3.github.io/mkdocs-website-sample/){:target="_blank"}.

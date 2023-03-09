@@ -1,7 +1,7 @@
 ---
 title: Créer un site web de documentation statique avec MkDocs
 created: '2023-02-23'
-modified: '2023-03-03'
+modified: '2023-03-09'
 language: fr
 categories: docs
 tags: git tools docs
@@ -45,7 +45,7 @@ L'intérêt d'utiliser ces formats est multiple:
 
 * le développeur se concentre sur la rédation du contenu plutôt que sur le formattage des données
 * la documentation peut être archivée comme du code source, voire dans le même repository que le projet
-* ces formats sont simples d'utilisation, même pour des personnes ayant peu ouo pas de connaissances techniques
+* ces formats sont simples d'utilisation, même pour des personnes ayant peu ou pas de connaissances techniques
 
 ## Les générateurs de sites web statiques
 
@@ -104,7 +104,8 @@ Dans un projet existant, on commence par créer un répertoire `docs`:
 mkdir docs/
 ```
 
-La création du squelette de documentation peut se faire avec le *CLI* de _MkDocs_, ou simplement en initialisant quelques fichiers à la main.
+La création du squelette de documentation peut se faire avec le _CLI_ (pour Command Line Interface) de _MkDocs_ et la commande [`mkdocs new`](https://www.mkdocs.org/user-guide/cli/#mkdocs-new), ou simplement en initialisant quelques fichiers à la main.
+
 Nous allons créer l'arborescence suivante:
 
 ```text
@@ -377,14 +378,18 @@ Le fichier final complet est disponible sur [le repository _Github_](https://git
 Une fois le fichier Github Actions publié, le workflow pourra s'exécuter, et publier le site web:
 ![](/assets/2023-02-23-mkdocs-material/create-docs-website-workflow.png)
 
-Le résultat final est visible [à ce lien](https://ekit3.github.io/mkdocs-website-sample/){:target="_blank"}.
+Le résultat final est visible [via ce lien](https://ekit3.github.io/mkdocs-website-sample/){:target="_blank"}.
 
 Le code source de cet article est disponible dans notre repository _Github_ [mkdocs-website-sample](https://github.com/ekit3/mkdocs-website-sample){:target="_blank"}
 
 # Conclusion
 
-En conclusion, nous avons vu les principes de documentation-as-code, et qu'il était très simple de publier une documentation sous la forme d'un site web. Nous avons également vu comment utiliser le format _markdown_, couplé à l'outil _MkDocs_ et le thème _Material for MkDocs_ pour générer un site web et le personnaliser.
+En conclusion, nous avons vu les principes de documentation-as-code, et qu'il était très simple de publier une documentation sous la forme d'un site web. 
+Nous avons également vu comment utiliser le format _markdown_, couplé à l'outil _MkDocs_ et le thème _Material for MkDocs_ pour générer un site web et le personnaliser.
 Enfin, nous avons vu comment utiliser _Github Actions_ et _Github Pages_ pour publier notre site de documentation sur internet.
+
+_MkDocs_, couplé à un hébergement avec _Gitlab Pages_ ou _Github Pages_, permet de générer un site web en quelques étapes rapides.
+Cela en fait l'outil idéal pour documenter un projet open-source ou interne.
 
 # Liens
 

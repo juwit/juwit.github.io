@@ -47,7 +47,9 @@
         {% unless posts_total == 0 %}
           {% include thoughts.html %}
         {% endunless %}
-        
+
+        {% include talks.html %}
+
         {% include projects.html %}
 
         {% if site.show_stats %}

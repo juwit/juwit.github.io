@@ -30,6 +30,10 @@ projects:
     projects:
     # - repo-name
 
+collections:
+  talks:
+    output: true
+
 pinned_repos:
   - name: gaia-app/gaia
     html_url: https://github.com/gaia-app/gaia

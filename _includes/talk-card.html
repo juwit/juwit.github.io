@@ -20,10 +20,10 @@
   <div class="text-gray mb-2 ws-normal">{{ talk.date | date: "%b %d, %Y"}}</div>
   {% endif %}
 
-  <div style="white-space: pre-wrap;" class="mb-1">{{ talk.abstract }}</div>
+  <div class="markdown-body mb-3">{{ talk.abstract | markdownify }}</div>
 
   {% if talk.slides %}
-  <div>
+  <div class="mb-3">
     <a href="{{talk.slides}}" target="_blank" class="d-inline-block link-gray mb-1">
       {% octicon link-external height:16 %} Slides
     </a>

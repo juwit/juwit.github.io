@@ -20,6 +20,12 @@
   <div class="text-gray mb-2 ws-normal">{{ talk.date | date: "%b %d, %Y"}}</div>
   {% endif %}
 
+  {% if talk.events %}
+    {% for event in talk.events %}
+  <span class="Label Label--success mb-3">{{ event }}</span>
+    {% endfor %}
+  {% endif %}
+
   <div class="markdown-body mb-3">{{ talk.abstract | markdownify }}</div>
 
   {% if talk.slides %}

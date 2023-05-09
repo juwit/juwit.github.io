@@ -36,6 +36,15 @@
   </div>
   {% endif %}
 
+  {% if talk.youtube %}
+  <div class="mb-3">
+    <a href="https://youtu.be/{{talk.youtube}}" target="_blank" class="link-gray mb-1 d-flex flex-items-center">
+      {{ site.data.social_media["youtube"].icon_svg }}
+      <span class="d-none d-sm-inline-block ml-1">{{ site.data.social_media["youtube"].name }}</span>
+    </a>
+  </div>
+  {% endif %}
+
   {% for tag in talk.tags %}
     <span class="State State--small">{{ tag }}</span>
   {% endfor %}

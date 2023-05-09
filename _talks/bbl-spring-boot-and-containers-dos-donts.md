@@ -5,11 +5,12 @@ article: false
 layout: talk
 categories: 
   - devops
+type: BBL
 tags: 
   - spring-boot
   - docker
   - kubernetes
-abstract: |2-
+abstract: |-
   Bien que Docker soit facile d'utilisation, construire une image reste un exercice compliqué.
 
   Optimisation, layers, et sécurité nécessitent de s'abstraire des Dockerfile basiques qu'on peut trouver sur internet.

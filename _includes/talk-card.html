@@ -15,7 +15,10 @@
       {% endif %}
     </h1>
   </div>
+
+  {% if talk.type != "BBL" %}
   <div class="text-gray mb-2 ws-normal">{{ talk.date | date: "%b %d, %Y"}}</div>
+  {% endif %}
 
   <div style="white-space: pre-wrap;" class="mb-1">{{ talk.abstract }}</div>
 

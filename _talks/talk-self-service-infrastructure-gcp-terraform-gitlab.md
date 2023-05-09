@@ -5,10 +5,9 @@ article: false
 date: 2022-06-10
 events:
   - DevFest Lille 2022
-categories: 
-  - devops
 type: Talk
 tags: 
+  - DevOps
   - Gitlab
   - GCP
   - Terraform

@@ -3,7 +3,8 @@ title: Schedule a linux command to run later with `at`
 created: '2020-07-15'
 modified: '2022-06-17'
 language: en
-categories: devops
+tags:
+  - DevOps
 ---
 
 As I prepare and run a lot of scripts, sometimes I need to run a script at a precise time of the day.

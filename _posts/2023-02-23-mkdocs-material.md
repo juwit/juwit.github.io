@@ -3,8 +3,10 @@ title: Créer un site web de documentation statique avec MkDocs
 created: '2023-02-23'
 modified: '2023-03-09'
 language: fr
-categories: docs
-tags: git tools docs
+tags:
+  - Git
+  - Tools
+  - Docs
 ---
 
 # Créer un site web de documentation statique avec MkDocs

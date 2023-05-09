@@ -13,7 +13,7 @@
   </div>
   <div class="text-gray mb-2 ws-normal">{{ post.date | date: "%b %d, %Y"}}</div>
 
-  {% for category in post.categories %}
-    <span class="State State--small">{{ category }}</span>
+  {% for tag in post.tags %}
+    <span class="State State--small">{{ tag }}</span>
   {% endfor %}
 </div>

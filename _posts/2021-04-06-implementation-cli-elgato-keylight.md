@@ -3,8 +3,8 @@ title: Implémentation d'un CLI pour la Elgato KeyLight
 created: '2021-04-06'
 modified: '2022-04-15'
 language: fr
-categories: dev
-tags: go
+tags:
+  - Go
 ---
 
 ## Adresse IP/URL du KeyLight

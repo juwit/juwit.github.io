@@ -1,15 +1,14 @@
 ---
 title: BBL - Spring Boot & Containers - Do's & Don'ts
 language: fr
-article: false
+article: true
 layout: talk
-categories: 
-  - devops
 type: BBL
-tags: 
-  - spring-boot
-  - docker
-  - kubernetes
+tags:
+  - DevOps
+  - Spring Boot
+  - Docker
+  - Kubernetes
 abstract: |+
   Bien que Docker soit facile d'utilisation, construire une image reste un exercice compliqué.
 

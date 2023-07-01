@@ -1,7 +1,7 @@
 <h2>Talks</h2>
 <p class="f4 mb-4 text-gray">Talks, BBLs, and other conferences.</p>
 <div class="d-sm-flex flex-wrap gutter-condensed mb-4">
-  {% for talk in site.talks %}
+  {% for talk in site.talks reversed %}
     <div class="col-sm-6 col-md-12 col-lg-6 col-xl-4 mb-3">
       {% include talk-card.html %}
     </div>

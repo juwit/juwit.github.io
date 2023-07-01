@@ -1,7 +1,7 @@
 ---
 title: Anatomie d'une requête HTTP
 created: '2023-05-25'
-updated: '2023-07-01'
+modified: '2023-07-01'
 language: fr
 tags:
   - Basics

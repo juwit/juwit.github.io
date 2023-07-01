@@ -1,7 +1,7 @@
 ---
 title: BBL - Spring Boot & Containers - Do's & Don'ts
 language: fr
-article: true
+article: false
 layout: talk
 type: BBL
 tags:
@@ -9,6 +9,10 @@ tags:
   - Spring Boot
   - Docker
   - Kubernetes
+events: 
+  - Axa Web Center Lille (Apr 27, 2023)
+  - Ippon Lille (May 15, 2023)
+  - ADEO Tech Bubble (Jun 7, 2023)
 abstract: |+
   Bien que Docker soit facile d'utilisation, construire une image reste un exercice compliqué.
 

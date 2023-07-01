@@ -4,7 +4,7 @@ language: fr
 article: false
 date: 2023-06-29
 events:
-  - Suny Tech 2023
+  - Sunny Tech 2023
 type: Talk
 tags: 
   - DevOps

@@ -27,6 +27,8 @@ abstract: |+
   * création de ressources (code terraform) dans le projet GCP nouvellement créé
 
   Ce REX est destiné aux développeurs curieux de l'infrastructure as code, quelques notions de Terraform, Gitlab et GCP sont les bienvenues pour bien le comprendre.
-slides: https://www.slideshare.net/JulienWITTOUCK1/selfservice-infrastructure-pour-gcp-avec-terraform-et-gitlabpdf
+slides:
+  - event: BBL
+    slides: /talks/devfest2022-talk-self-service-infrastructure-gcp-terraform-gitlab.pdf
 youtube: DxC8gRvqvpA
 ---

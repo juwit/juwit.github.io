@@ -28,5 +28,7 @@ abstract: |+
   * comment bien écrire un Dockerfile pour optimiser la construction et l'image finale 📝
   * des moyens alternatifs de construction d'images Spring Boot 🏗
   * et l'outillage d'analyse à ajouter à votre toolbox 🔧
-slides: https://www.slideshare.net/JulienWITTOUCK1/spring-boot-containers-dos-donts
+slides:
+  - event: BBL
+    slides: /talks/bbl-spring-boot-and-containers-dos-donts.pdf
 ---

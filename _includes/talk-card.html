@@ -30,7 +30,7 @@
 
   {% if talk.slides %}
   <div class="mb-3">
-    <a href="{{talk.slides}}" target="_blank" class="d-inline-block link-gray mb-1">
+    <a href="{{talk.slides[0].slides}}" target="_blank" class="d-inline-block link-gray mb-1">
       {% octicon link-external height:16 %} Slides
     </a>
   </div>

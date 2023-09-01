@@ -69,8 +69,8 @@
               {% endif %}
             </p>
             <p class="{% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %} mb-5">
-              {{ page.content | number_of_words }} words,
-              {{ page.content | number_of_words | divided_by: 180 }} minutes to read
+              {{ page.abstract | number_of_words }} words,
+              {{ page.abstract | number_of_words | divided_by: 180 }} minutes to read
             </p>
             {{ post_body }}
           </div>

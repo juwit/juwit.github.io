@@ -35,18 +35,26 @@ collections:
     output: true
 
 pinned_repos:
+  - name: juwit/gitlab-classrooms
+    html_url: https://github.com/juwit/gitlab-classrooms
+    description: GitLab Classroom is a modest clone of Github Classroom, aimed at GitLab.
+    language: Java
   - name: gaia-app/gaia
     html_url: https://github.com/gaia-app/gaia
     description: Gaia is a Terraform 🌍 UI for your modules, and self-service infrastructure 👨‍💻
     language: Java
-    stargazers_count: 638
-    forks_count: 66
+    stargazers_count: 794
+    forks_count: 82
   - name: gaia-app/runner
     html_url: https://github.com/gaia-app/runner
     description:  gaia-runner is the service that runs the Terraform jobs in Gaia. 
     language: Java
     stargazers_count: 2
-    forks_count: 10
+    forks_count: 11
+  - name: juwit/reveal-quiz
+    html_url: https://github.com/juwit/reveal-quiz
+    description: reveal.js plugin that allows adding quiz as slides.
+    language: TypeScript
 
 show_stats: true
 

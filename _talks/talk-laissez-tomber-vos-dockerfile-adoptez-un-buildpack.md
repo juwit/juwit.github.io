@@ -37,4 +37,5 @@ abstract: |+
 slides: 
   - event: SunnyTech 2023
     slides: /talks/sunnytech2023-talk-laissez-tomber-vos-dockerfile-adoptez-un-buildpack.pdf
+youtube: 2Zo34sXsMxU
 ---

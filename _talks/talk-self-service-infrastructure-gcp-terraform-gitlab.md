@@ -1,7 +1,8 @@
 ---
 title: Talk - Self-Service infrastructure pour GCP avec Terraform et Gitlab
 language: fr
-article: false
+article: true
+layout: talk
 date: 2022-06-10
 events:
   - DevFest Lille 2022

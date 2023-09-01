@@ -1,7 +1,7 @@
 ---
 title: BBL - Spring Boot & Containers - Do's & Don'ts
 language: fr
-article: false
+article: true
 layout: talk
 type: BBL
 tags:

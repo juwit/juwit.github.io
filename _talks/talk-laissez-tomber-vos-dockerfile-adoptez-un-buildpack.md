@@ -6,6 +6,7 @@ article: true
 date: 2023-06-29
 events:
   - Sunny Tech 2023
+  - Cloud Nord 2023
 type: Talk
 tags: 
   - DevOps
@@ -35,7 +36,9 @@ abstract: |+
 
   À la sortie de ce talk, je devrai vous avoir convaincu d'abandonner vos Dockerfile et d'expérimenter les buildpacks !
 slides: 
-  - event: SunnyTech 2023
+  - event: Sunny Tech 2023
     slides: /talks/sunnytech2023-talk-laissez-tomber-vos-dockerfile-adoptez-un-buildpack.pdf
+  - event: Cloud Nord 2023
+    slides: /talks/cloudnord2023-talk-laissez-tomber-vos-dockerfile-adoptez-un-buildpack.pdf
 youtube: 2Zo34sXsMxU
 ---

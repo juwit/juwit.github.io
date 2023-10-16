@@ -34,8 +34,10 @@
     <h1>Abstract</h1>
     {{ page.abstract | markdownify }}
 
-    <h1>Slides</h1>
-    <embed src="{{ page.slides[0].slides }}" type="application/pdf" width="100%" height="500px">
+    {% for slides in page.slides %}
+    <h1>Slides {{ slides.event }}</h1>
+    <embed src="{{ slides.slides }}" type="application/pdf" width="100%" height="500px">
+    {% endfor %}
 
     {% if page.youtube %}
     <h1>Videos</h1>

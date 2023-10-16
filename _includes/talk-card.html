@@ -30,9 +30,11 @@
 
   {% if talk.slides %}
   <div class="mb-3">
-    <a href="{{talk.slides[0].slides}}" target="_blank" class="d-inline-block link-gray mb-1">
-      {% octicon link-external height:16 %} Slides
+    {% for slides in talk.slides %}
+    <a href="{{slides.slides}}" target="_blank" class="d-inline-block link-gray mb-1">
+      {% octicon link-external height:16 %} Slides {{ slides.event }}
     </a>
+    {% endfor %}
   </div>
   {% endif %}
 

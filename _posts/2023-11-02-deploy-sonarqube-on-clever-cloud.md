@@ -9,30 +9,30 @@ tags:
   - Docs
 ---
 
-Dans cet article, nous allons voir comment déployer _SonarQube_ sur _Clever Cloud_ selon 2 approches. La première consistera en un déploiement très simple, qui est équivalente à une installation locale. La seconde approche utilisera une base de données _PostgreSQL_ externalisée, pour assurer la persistance des données.
+Dans cet article, nous allons voir comment déployer _SonarQube_ sur _Clever Cloud_ en 2 temps. Le premièr consistera en un déploiement très simple, qui est équivalent à une installation locale. Dans un second temps, on utilisera une base de données _PostgreSQL_ externalisée pour assurer la persistance des données.
 
 Cet article suppose que vous avez déjà un compte actif sur _Clever Cloud_, et que votre CLI est installé et configuré.
 L'installation du CLI est décrite dans [la documentation de _Clever Cloud_](https://www.clever-cloud.com/doc/getting-started/cli/){:target="_blank"}.
 
 # Le déploiement simple
 
-La [documentation _SonarQube_](https://docs.sonarsource.com/sonarqube/latest/try-out-sonarqube/#installing-a-local-instance-of-sonarqube){:target="_blank"} propose de déployer une instance locale en utilisant la commande suivante&nbsp;: 
+La [documentation _SonarQube_](https://docs.sonarsource.com/sonarqube/latest/try-out-sonarqube/#installing-a-local-instance-of-sonarqube){:target="_blank"} propose de déployer une instance locale en utilisant la commande suivante&nbsp;:
 
 ```bash
-docker container run -d \
+$ docker container run -d \
   --name sonarqube \
   -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
   -p 9000:9000 \
   sonarqube:latest
 ```
 
-_SonarQube_ fournit une [image Docker](https://hub.docker.com/_/sonarqube){:target="_blank"} prête à l'emploi que nous allons utiliser. Nous utiliserons le tag Docker `10-community` pour nous assurer de rester sur la version majeure `10`.
+_SonarQube_ fournit une [image Docker](https://hub.docker.com/_/sonarqube){:target="_blank"} prête à l'emploi que nous allons utiliser. Nous utiliserons le tag _Docker_ `10-community` pour nous assurer de rester sur la version majeure `10`.
 
 La variable d'environnement `SONAR_ES_BOOTSTRAP_CHECKS_DISABLE` permet à _SonarQube_ d'ignorer les contrôles de démarrage du process _Elasticsearch_ embarqué dans son serveur.
 
 _SonarQube_ écoute par défaut sur le port `9000`.
 
-Ces informations nous seront utiles par la suite !
+Ces informations nous seront utiles par la suite&nbsp;!
 
 ## Création de l'application dans _Clever Cloud_
 
@@ -62,6 +62,8 @@ $ clever create \
 
 Your application has been successfully created!
 ```
+
+L'application ainsi créée apparaît dans la console _Clever Cloud_&nbsp;:
 
 ![L'application crée dans _Clever Cloud_](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/create-sonarqube.png)
 
@@ -101,7 +103,7 @@ App rescaled successfuly
 
 Une fois la commande exécutée, la modification est visible dans l'onglet _Scalability_ de l'application &nbsp;:
 
-![clever-scale.png](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-scale.png)
+![L'application avec la taille d'instance M](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-scale.png)
 
 ## Configuration des variables d'environnement
 
@@ -129,7 +131,7 @@ Les variables d'environnement configurées sont visible sur la console _Clever C
 
 ![Les variables d'environnement configurées sur la console _Clever Cloud_](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-env.png)
 
-## Déploiement de l'image Docker
+## Déploiement de l'image _Docker_
 
 Une fois notre application créée et configurée, il nous faut la déployer.
 
@@ -167,7 +169,7 @@ Deployment successful
 
 Le message `Deployment successful` indique que notre instance est bien démarrée !
 
-Nous pouvons maintenant ouvrir notre instance de _SonarQube_ avec la commande :
+Nous pouvons maintenant ouvrir notre instance de _SonarQube_ avec la commande&nbsp;:
 
 ```bash
 $ clever open
@@ -175,19 +177,18 @@ $ clever open
 Opening the application in your browser
 ```
 
-La page de démarrage de _Sonarqube_ s'ouvre&nbsp;:
-![clever-open-starting.png](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-open-starting.png)
+La page de démarrage de _SonarQube_ s'ouvre&nbsp;:
+
+![La page de démarrage de _SonarQube_](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-open-starting.png)
 
 Quelques instants plus tard, un fois que l'instance _SonarQube_ est complètement démarrée, la page de login s'affiche&nbsp;:
-![sonarqube-login.png](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/sonarqube-login.png)
 
-On se loggue avec les identifiants par défaut `admin` / `admin`, puis on change le mot de passe du compte `admin`&nbsp;:
+![La page de login de _SonarQube_](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/sonarqube-login.png)
 
-![sonarqube-admin-pass.png](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/sonarqube-admin-pass.png)
-
+On se loggue avec les identifiants par défaut `admin` / `admin`, puis on change le mot de passe du compte `admin`.
 Une fois ces étapes effectuées, la page d'accueil de notre instance _SonarQube_ s'affiche&nbsp;:
 
-![soanrqube-empty.png](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/sonarqube-empty.png)
+![Notre instance de _SonarQube_ fonctionnelle](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/sonarqube-empty.png)
 
 Le message affiché en bas de page nous indique que notre déploiement est certes fonctionnel, mais non adapté à un usage en production. Nous allons donc maintenant utiliser une base de données externalisée.
 
@@ -280,7 +281,8 @@ Addon sonarqube-db (id: addon_2cc8bfaf-8800-43ef-87a0-4f162be73f2e) successfully
 ```
 
 Une fois la commande exécutée, notre base de données apparaît dans la console&nbsp;:
-![](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-addon-create.png)
+
+![La base de données créée](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-addon-create.png)
 
 Nous pouvons ensuite, lier notre base de données avec notre application. Ce lien va permettre de partager des variables d'environnement entre la base de données et notre application&nbsp;:
 
@@ -292,7 +294,7 @@ Addon sonarqube-db successfully linked
 
 Une fois l'application liée, les variables d'environnement de la base de données apparaissent dans l'onglet _Environment Variables_ de notre application&nbsp;:
 
-![clever-service-link-addon.png](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-service-link-addon.png)
+![Les variables d'environnement de notre application](/assets/2023-11-02-deploy-sonarqube-on-clever-cloud/clever-service-link-addon.png)
 
 ## Re-configurer notre instance _SonarQube_
 
@@ -343,7 +345,7 @@ Une fois _SonarQube_ redémarré, il nous demande à nouveau de changer le mot d
 
 Il est relativement facile de déployer _SonarQube_ sur _Clever Cloud_. L'image _Docker_ fournie par _SonarQube_ nous permet de démarrer rapidement une instance.
 
-Les bases de données proposées par _Clever Cloud_ sont également pratiques pour démarrer rapidement. Cependant, le manque de souplesse de _SonarQube_ sur sa configuration, et l'impossibilité de renommer des variables d'environnement sur _Clever Cloud_ rend la dernière étape de la configuration peu pratique, et peu robuste.
+Les bases de données proposées par _Clever Cloud_ sont également pratiques pour démarrer rapidement. Cependant, le manque de souplesse de _SonarQube_ dans sa configuration, et l'impossibilité de renommer des variables d'environnement sur _Clever Cloud_ rend la dernière étape de la configuration peu pratique et peu robuste.
 
 Pour exécuter l'infrastructure proposée dans cet article, il vous en coûtera environ 81€25 / mois&nbsp;:
 
@@ -352,6 +354,6 @@ Pour exécuter l'infrastructure proposée dans cet article, il vous en coûtera 
 |PostgreSQL - XXS Small Space|5.25€|
 |Node Docker - Plan M|€76|
 
-A titre de comparaison, un container de 4 CPU et 4 Go de RAM sur GCP Cloud Run coûte 174 € / mois, avec l'option CPU always allocated requise par _SonarQube_ pour exécuter ses traitements en arrière plan, et une base de données la plus petite possible coûte un peu plus de 50 € / mois, ce qui fait également de _Clever Cloud_ un excellent choix économique !
+À titre de comparaison, un container de 4 CPU et 4 Go de RAM sur GCP Cloud Run coûte 174 € / mois, avec l'option _CPU always allocated_ requise par _SonarQube_ pour exécuter ses traitements en arrière plan. Cela fait de _Clever Cloud_ un excellent choix économique !
 
 Les scripts de cet article sont disponibles sur [Github](https://github.com/juwit/sonarqube-clever-cloud){:target="_blank"}.

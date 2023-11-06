@@ -111,7 +111,7 @@ _Clever Cloud_ requiert que les applications déployées écoutent sur le port `
 
 Nous avons également vu précédemment que par défaut _SonarQube_ écoute sur le port `9000`.
 
-La configuration de notre instance _SonarQube_ peut se faire avec des variables d'environnement ([doc](https://docs.sonarsource.com/sonarqube/latest/setup-and-upgrade/configure-and-operate-a-server/environment-variables/)).
+La configuration de notre instance _SonarQube_ peut se faire avec des variables d'environnement ([doc](https://docs.sonarsource.com/sonarqube/latest/setup-and-upgrade/configure-and-operate-a-server/environment-variables/){:target="_blank"}).
 
 Nous allons donc configurer la variable d'environnement `SONAR_WEB_PORT` avec la valeur `8080`.
 Nous allons également en profiter pour configurer la variable `SONAR_ES_BOOTSTRAP_CHECKS_DISABLE` qui était précisée dans la ligne de lancement `docker` issue de la documentation _SonarQube_.

@@ -1,7 +1,7 @@
 ---
 title: Déployer une instance de SonarQube sur Clever Cloud
 created: "2023-11-02"
-modified: "2023-11-03"
+modified: "2023-11-09"
 language: fr
 tags:
   - Clever Cloud
@@ -309,7 +309,22 @@ SONAR_JDBC_PASSWORD
 SONAR_JDBC_URL
 ```
 
-L'URL JDBC suit un schéma précis, qui est `jdbc:<driver>//<host>:<port>/<db>`. _Clever Cloud_ expose une variable d'environnement pour les `host`, `port` et `db`, donc nous pouvons calculer notre variable `SONAR_JDBC_URL`.
+L'URL JDBC suit un schéma précis, qui est `jdbc:<driver>://<host>:<port>/<db>`. _Clever Cloud_ expose une variable d'environnement pour les `host`, `port` et `db`, donc nous pouvons calculer notre variable `SONAR_JDBC_URL` en utilisant ces variables. Voici donc la liste des variables fournies par l'_addon_ que nous allons utiliser&nbsp;:
+
+```env
+# pour SONAR_JDBC_USERNAME
+POSTGRESQL_ADDON_USER
+# pour SONAR_JDBC_PASSWORD
+POSTGRESQL_ADDON_PASSWORD
+# pour SONAR_JDBC_URL
+POSTGRESQL_ADDON_HOST
+POSTGRESQL_ADDON_PORT
+POSTGRESQL_ADDON_DB
+```
+
+### Copie des variables d'environnement
+
+{% include admonition.html type="note" title="Update 2023-11-09" body="Suite aux échanges avec le support de _Clever Cloud_, ils m'ont proposé un autre moyen de positionner les variables d'environnement. Cet autre moyen est décrit dans la section suivante. Cette section est donc obsolète. Le code source sur Github a également été mis à jour." %}
 
 Malheureusement, ni _SonarQube_ ni _Clever Cloud_ ne supporte de renommer ses variables d'environnement, ou de les interpoler.
 Nous devons donc créer les variables d'environnement _SONAR_ avec des valeurs en dur, issues des variables d'environnement _POSTGRESQL_ADDON_.
@@ -343,11 +358,54 @@ $ clever restart
 
 Une fois _SonarQube_ redémarré, il nous demande à nouveau de changer le mot de passe de l'utilisateur `admin` puisque le précédent mot de passe a été stocké dans la base de données embarquée, et donc perdu à la migration.
 
+### Script de démarrage customisé
+
+{% include admonition.html type="note" title="Update 2023-11-09" body="Cette section a été ajoutée suite aux échanges avec le support de _Clever Cloud_" %}
+
+Malheureusement, ni _SonarQube_ ni _Clever Cloud_ ne supporte de renommer ses variables d'environnement, ou de les interpoler.
+Nous allons donc ajouter un script dans notre image _Docker_ pour retravailler nos variables d'enviroonement.
+
+L'image _Docker_ de _SonarQube_ utilise pour `ENTRYPOINT` un script nommé `/opt/sonarqube/docker/entrypoint.sh`.
+
+Notre script que nous appelons `clever-entrypoint.sh` va donc positionner les variables d'environnement nécessaires au démarrage de _SonarQube_ et rappeler le script de _SonarQube_ &nbsp;:
+
+```bash
+#!/bin/sh
+
+export SONAR_JDBC_USERNAME=$POSTGRESQL_ADDON_USER
+export SONAR_JDBC_PASSWORD=$POSTGRESQL_ADDON_PASSWORD
+export SONAR_JDBC_URL="jdbc:postgresql://${POSTGRESQL_ADDON_HOST}:${POSTGRESQL_ADDON_PORT}/${POSTGRESQL_ADDON_DB}"
+
+exec /opt/sonarqube/docker/entrypoint.sh
+```
+
+Nous ajoutons ce script dans le répertoire `/opt/sonarqube/docker` au niveau de notre `Dockerfile`, nous modifions l'`ENTRYPOINT` de notre image pour pointer vers notre script&nbsp;:
+
+```docker
+FROM sonarqube:10-community
+
+ADD clever-entrypoint.sh /opt/sonarqube/docker/
+
+ENTRYPOINT ["/opt/sonarqube/docker/clever-entrypoint.sh"]
+```
+
+Un `git commit` suivi d'un `clever deploy` nous permettent de mettre à jour notre application avec le script embarqué et de pointer vers notre base de données.
+
+```bash
+$ git add Dockerfile clever-entrypoint.sh
+
+$ git commit -m "🔧 : add custom entrypoint for Clever Cloud"
+
+$ clever deploy
+```
+
+Une fois _SonarQube_ redémarré, il nous demande à nouveau de changer le mot de passe de l'utilisateur `admin` puisque le précédent mot de passe a été stocké dans la base de données embarquée, et donc perdu à la migration.
+
 # Conclusion
 
 Il est relativement facile de déployer _SonarQube_ sur _Clever Cloud_. L'image _Docker_ fournie par _SonarQube_ nous permet de démarrer rapidement une instance.
 
-Les bases de données proposées par _Clever Cloud_ sont également pratiques pour démarrer rapidement. Cependant, le manque de souplesse de _SonarQube_ dans sa configuration et l'impossibilité de renommer des variables d'environnement sur _Clever Cloud_ rendent la dernière étape de la configuration peu pratique et peu robuste.
+Les bases de données proposées par _Clever Cloud_ sont également pratiques pour démarrer rapidement. Cependant, le manque de souplesse de _SonarQube_ dans sa configuration et l'impossibilité de renommer des variables d'environnement sur _Clever Cloud_ rendent la dernière étape de la configuration peu pratique et peu robuste. Un peu de scripting permet de rendre cette étape plus propre.
 
 Pour exécuter l'infrastructure proposée dans cet article, il vous en coûtera environ 81,25&nbsp;€/mois&nbsp;:
 

@@ -79,23 +79,23 @@ social_media:
 topics:
   - name: Java
     web_url: https://github.com/topics/Java
-    image_url: https://raw.githubusercontent.com/github/explore/5b3600551e122a3277c2c5368af2ad5725ffa9a1/topics/java/java.png
+    image_url: /assets/topics/java.png
 
   - name: Docker
     web_url: https://github.com/topics/Docker
-    image_url: https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/docker/docker.png
+    image_url: /assets/topics/docker.png
 
   - name: Linux
     web_url: https://github.com/topics/Linux
-    image_url: https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/linux/linux.png
+    image_url: /assets/topics/linux.png
 
   - name: Kubernetes
     web_url: https://github.com/topics/Kubernetes
-    image_url: https://raw.githubusercontent.com/github/explore/01ea2a586e5da744792d0ccfce2f68b861f29301/topics/kubernetes/kubernetes.png
+    image_url: /assets/topics/kubernetes.png
 
   - name: Terraform
     web_url: https://github.com/topics/Terraform
-    image_url: https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terraform/terraform.png
+    image_url: /assets/topics/terraform.png
 
 
 jekyll-diagrams:

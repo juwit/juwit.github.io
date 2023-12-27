@@ -3,6 +3,7 @@ title: Implémentation d'un CLI pour la Elgato KeyLight
 created: '2021-04-06'
 modified: '2022-04-15'
 language: fr
+canonical_url: https://codeka.io/2021/04/06/implementation-cli-elgato-keylight/
 tags:
   - Go
 ---

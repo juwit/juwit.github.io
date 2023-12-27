@@ -3,6 +3,7 @@ title: Configure a Global Gitignore 🙈
 created: '2020-04-16'
 modified: '2022-06-17'
 language: en
+canonical_url:  https://codeka.io/2020/06/01/global-gitignore-file/
 tags: 
   - DevOps
   - Git

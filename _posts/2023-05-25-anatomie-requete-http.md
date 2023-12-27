@@ -3,6 +3,7 @@ title: Anatomie d'une requête HTTP
 created: '2023-05-25'
 modified: '2023-07-01'
 language: fr
+canonical_url: https://codeka.io/2023/05/25/anatomie-requete-http/
 tags:
   - Basics
 ---

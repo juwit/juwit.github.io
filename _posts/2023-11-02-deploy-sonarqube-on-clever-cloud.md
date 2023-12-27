@@ -3,6 +3,7 @@ title: Déployer une instance de SonarQube sur Clever Cloud
 created: "2023-11-02"
 modified: "2023-11-09"
 language: fr
+canonical_url: https://codeka.io/2023/11/02/deploy-sonarqube-on-clever-cloud/
 tags:
   - Clever Cloud
   - SonarQube

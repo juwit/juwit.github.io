@@ -3,6 +3,7 @@ title: xdotool cheatsheet
 created: '2021-02-06'
 modified: '2022-04-15'
 language: en
+canonical_url: https://codeka.io/2021/02/06/xdotool-cheatsheet/
 tags:
   - Tools
 ---

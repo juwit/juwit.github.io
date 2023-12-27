@@ -3,6 +3,7 @@ title: Schedule a linux command to run later with `at`
 created: '2020-07-15'
 modified: '2022-06-17'
 language: en
+canonical_url: https://codeka.io/2020/07/15/schedule-linux-commands/
 tags:
   - DevOps
 ---

@@ -4,6 +4,7 @@ title: direnv pour booster votre shell
 created: '2022-06-17'
 modified: '2022-08-05'
 language: fr
+canonical_url: https://codeka.io/2022/06/17/direnv-pour-votre-shell/
 tags:
   - DevOps
   - Shell

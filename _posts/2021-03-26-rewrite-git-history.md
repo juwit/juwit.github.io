@@ -3,6 +3,7 @@ title: Réécrire une branche git
 created: '2021-03-26'
 modified: '2022-04-22'
 language: fr
+canonical_url: https://codeka.io/2021/03/26/rewrite-git-history/
 tags:
   - DevOps
   - Git

@@ -3,6 +3,7 @@ title: Créer un site web de documentation statique avec MkDocs
 created: '2023-02-23'
 modified: '2023-03-09'
 language: fr
+canonical_url: https://codeka.io/2023/02/23/mkdocs-material/
 tags:
   - Git
   - Tools

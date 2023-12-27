@@ -4,6 +4,7 @@ title: Exécuter une application localement sur minikube avec skaffold
 created: '2022-07-22'
 modified: '2022-07-29'
 language: fr
+canonical_url: https://codeka.io/2022/07/22/skaffold-et-minikube/
 tags:
   - DevOps
   - Kubernetes

@@ -30,6 +30,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-site-verification" content="wRQ1oFRmMvXoN5WBYWYPPecIzvACkz-K7GjK8HLyQdA" />
     <link href="{{ "/assets/styles.css" | relative_url }}" rel="stylesheet" type="text/css">
+    {% if page.canonical_url %}
+    <link rel="canonical" href="{{page.canonical_url}}" />
+    {% endif %}
     <script defer data-domain="juwit.github.io" src="https://plausible.io/js/plausible.js"></script>
   </head>
   <body class="bg-white min-height-full" {% if site.style == 'dark' %}style="background-color: #2f363d !important"{% endif %}>
